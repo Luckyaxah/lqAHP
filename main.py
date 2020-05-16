@@ -20,7 +20,7 @@ for key in keys:
     n_data = f[key](data[key])
     ret = compare_vec(n_data,grade)
     w[key] = get_weights(ret)
-
+# 价格、房屋类型、房屋面积、朝向、楼层、装修情况、配套设置
 data1 = [
     [1,7,2,1/2,3,1,9],
     [0,1,1/5,1/5,1/7,1/3,1/2],
