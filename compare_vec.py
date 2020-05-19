@@ -61,7 +61,8 @@ def normalize_direction(directions):
         '东/西':3,
         '东/南/西':6,
         '南/东北':5,
-        '东/南':7
+        '东/南':7,
+        '西/北':2
     }
     ret = np.zeros_like(directions,dtype=np.float)
     for i in range(len(directions)):
