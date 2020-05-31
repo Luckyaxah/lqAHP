@@ -26,10 +26,20 @@ def normalize_housetype(types):
     MIN_GRADE = 1
     ret = np.zeros_like(types,dtype=np.float)
     def fun(x):
-        a1,a2,a3 = re.match(r'(\d)室(\d)厅(\d)卫',x).groups()
-        return (2**int(a1)+2**int(a2) + 2**int(a3))/12.0*(MAX_GRADE-MIN_GRADE)+1
+        ret = re.match(r'(\d)室(\d)厅(\d)卫',x)
+        if ret != None:
+            a1,a2,a3 = re.match(r'(\d)室(\d)厅(\d)卫',x).groups()
+            return (2**int(a1)+2**int(a2) + 2**int(a3))/12.0*(MAX_GRADE-MIN_GRADE)+1
+        return None
+
     for i in range(len(types)):
-        ret[i] = fun(types[i])
+        try:
+            result = fun(types[i])
+            ret[i] = result if result else 5
+        except:
+            print(types[i])
+            print(re.match(r'(\d)室(\d)厅(\d)卫',types[i]))
+            print(fun(types[i]))
     return ret
 
 def normalize_area(areas):
@@ -62,7 +72,8 @@ def normalize_direction(directions):
         '东/南/西':6,
         '南/东北':5,
         '东/南':7,
-        '西/北':2
+        '西/北':2,
+        '东/西/西北':6
     }
     ret = np.zeros_like(directions,dtype=np.float)
     for i in range(len(directions)):
