@@ -47,7 +47,10 @@ def normalize_area(areas):
     MIN_GRADE = 1
     ret = np.zeros_like(areas,dtype=np.float)
     for i in range(len(areas)):
-        ret[i] = areas[i][:-1]
+        if type(areas[i]) == str:
+            ret[i] = areas[i][:-1]
+        else:
+            ret[i] = areas[i]
     max_p = max(ret)
     min_p = min(ret)
     return (ret-min_p)/(max_p-min_p)*(MAX_GRADE-MIN_GRADE)+1
@@ -89,7 +92,21 @@ def normalize_floor(floors):
     ret = np.zeros_like(floors,dtype=np.float)
     for i in range(len(floors)):
         f1, f2 = floors[i].split('/')
-        ret[i] = d[f1]+int(f2[:-1])/15
+        try:
+            ff1 = int(f1)
+            ff2 = int(f2)
+            r = ff1/ff2
+            if r <= 1/3:
+                # 低楼层
+                ret[i] = d['低楼层']
+            elif r<=2/3:
+                # 中楼层
+                ret[i] = d['中楼层']
+            else:
+                ret[i] = d['高楼层']
+            ret[i] += ff2/15
+        except:
+            ret[i] = d[f1]+int(f2[:-1])/15
     return ret
 
 def normalize_decoration(decorations):
@@ -115,8 +132,15 @@ def normalize_facility(facilities):
         return d[x]
     ret = np.zeros_like(facilities,dtype=np.float)
     for i in range(len(facilities)):
+        if not facilities[i]:
+            ret[i] = 1
+            continue
         try:
             if type(facilities[i])==str:
+                if facilities[i]=='自如':
+                    ret[i] = 7
+                    continue
+
                 temp = map(fun, facilities[i].split(';'))
                 ret[i] = reduce(lambda x,y: x+y,temp)
             else:
