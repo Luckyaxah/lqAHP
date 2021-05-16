@@ -3,6 +3,9 @@ class Err(Exception):
     pass
 
 def get_weights(data):
+    """
+    获取数据权值，返回权向量
+    """
 
     rc = len(data[0])
     for i in range(rc):

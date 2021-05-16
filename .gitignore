@@ -7,3 +7,4 @@ data.txt
 result.txt
 .DS_Store
 __pycache__/
+.vscode

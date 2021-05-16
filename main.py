@@ -3,8 +3,18 @@ import numpy as np
 from compare_vec import normalize_price, compare_vec, grade,normalize_housetype,\
     normalize_area,normalize_direction, normalize_floor, normalize_decoration, normalize_facility
 from vec2mat import get_weights
-data = pd.read_csv('./mydbase.csv')
+
+infile = './mydbase.csv'
+outfile = './result.csv'
+
+infile = './data/data.csv'
+outfile = './data/result.csv'
+
+# 读取数据文件
+data = pd.read_csv(infile)
 w = {}
+
+# 指定每个考察因素对应的标准化函数
 f = {
     '价格':normalize_price,
     '房屋类型':normalize_housetype,
@@ -35,7 +45,7 @@ w0 = get_weights(np.array(data1))
 ret = np.zeros_like(w['价格'],dtype=float)
 for ind, key in enumerate(keys):
     ret += w0[ind]* w[key]
-# print(ret)
+
 ret1 = pd.DataFrame(ret)
 # print(ret1)
 # with open('./result.txt','w') as fi:
@@ -44,6 +54,7 @@ ret1.sort_values(by=0,ascending=False)
 data['score']=ret1 
 
 ret2 = data.sort_values(by='score',ascending=False)
-cols = ['价格','房屋面积','房屋类型','房源Id','朝向','楼层','装修情况','链接','配套设施_无','配套设施_有','房屋标题','租赁方式','房源描述','房源维护时间','score']
+# cols = ['价格','房屋面积','房屋类型','房源Id','朝向','楼层','装修情况','链接','配套设施_无','配套设施_有','房屋标题','租赁方式','房源描述','房源维护时间','score']
+cols = ['价格','房屋面积','房屋类型','朝向','楼层','装修情况','链接','配套设施_有','房屋标题','score']
+ret2[cols].to_csv(outfile)
 
-ret2[cols].to_csv('./result.csv')
