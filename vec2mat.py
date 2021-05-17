@@ -14,9 +14,16 @@ def get_weights(data):
         
     # 计算一致性指标CI
     lams, vecs = np.linalg.eig(data)
-    maxlam = np.abs(lams)[0]
+    # maxlam = np.abs(lams)[0]
+    lams = np.abs(lams)
+    maxlam = max(np.abs(lams))
+    ind = -1
+    for i,val in enumerate(lams):
+        if maxlam == lams[i]:
+            ind = i
 
-    vec = abs(vecs[:,0]/np.sum(vecs[:,0]))
+
+    vec = abs(vecs[:,ind]/np.sum(vecs[:,ind]))
     CI = (maxlam-rc)/(rc-1)
 
     # RIs 定义, e.g. n=7时 RI=1.32

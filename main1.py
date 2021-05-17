@@ -1,4 +1,4 @@
-# 不考虑装修情况
+# 不考虑装修情况,配套设施
 
 import pandas as pd
 import numpy as np
@@ -21,24 +21,22 @@ f = {
     '房屋面积':normalize_area,
     '朝向':normalize_direction,
     '楼层':normalize_floor,
-    '配套设施_有':normalize_facility,
 }
 
-keys = ['价格','房屋类型','房屋面积','朝向','楼层','配套设施_有']
+keys = ['价格','房屋类型','房屋面积','朝向','楼层']
 for key in keys:
     n_data = f[key](data[key])
     ret = compare_vec(n_data,grade)
     w[key] = get_weights(ret)
 
 print(w)
-# 价格、房屋类型、房屋面积、朝向、楼层、配套设置
+# 价格、房屋类型、房屋面积、朝向、楼层
 data1 = [
-    [1,7,2,1/2,3,9],
-    [0,1,1/5,1/5,1/7,1/2],
-    [0,0,1,2,1,7],
-    [0,0,0,1,2,6],
-    [0,0,0,0,1,6],
-    [0,0,0,0,0,1]
+    [1,3,1/2,2,7],
+    [0,1,1/3,1/2,5],
+    [0,0,1,3,7],
+    [0,0,0,1,3],
+    [0,0,0,0,1],
 ]
 w0 = get_weights(np.array(data1))
 
