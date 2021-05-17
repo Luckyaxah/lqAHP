@@ -42,6 +42,7 @@ def normalize_housetype(types):
             print(fun(types[i]))
     return ret
 
+
 def normalize_area(areas):
     MAX_GRADE = 9
     MIN_GRADE = 1
@@ -152,6 +153,13 @@ def normalize_facility(facilities):
 
 def grade(x,y):
     return x/y
+
+def normalize_timecost(timecosts):
+    MAX_GRADE = 9
+    MIN_GRADE = 1
+    max_p = max(timecosts)
+    min_p = min(timecosts)
+    return MAX_GRADE-(timecosts-min_p)/(max_p-min_p)*(MAX_GRADE-MIN_GRADE)
 
 if __name__ == "__main__":
     vec1 = np.array([4000,5500,4200,4500])

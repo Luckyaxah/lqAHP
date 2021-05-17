@@ -91,10 +91,10 @@ def compute_score(all_weights, a_weights):
     for j in range(l2):
         score = 0
         for i in range(l1):
-            print(i,j,all_weights[i][j],a_weights[i])
+            # print(i,j,all_weights[i][j],a_weights[i])
             score += all_weights[i][j] * a_weights[i]
-        print(score)
-        print('-----')
+        # print(score)
+        # print('-----')
         scores.append(score)
     return scores
 

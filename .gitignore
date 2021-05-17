@@ -3,6 +3,7 @@
 *.egg
 *.csv
 *.db
+*.numbers
 data.txt
 result.txt
 .DS_Store
