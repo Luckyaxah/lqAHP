@@ -63,6 +63,6 @@ data['score']=ret1
 
 ret2 = data.sort_values(by='score',ascending=False)
 
-cols = ['价格','房屋面积','房屋类型','朝向','楼层','装修情况','链接','配套设施_有','房屋标题','地点/小区','耗时','score'] + dist_keys
+cols = ['价格','房屋面积','房屋类型','朝向','楼层','装修情况','链接','配套设施_有','房屋标题','地点/小区','地铁站','耗时','score','备注'] + dist_keys
 ret2[cols].to_csv(outfile)
 
